@@ -4,4 +4,7 @@
 {% endblock %}
 {% block content %}
     This is home. 
+    {% if user.is_authenticated %}
+        User is authenticated
+    {% endif %}
 {% endblock %}
