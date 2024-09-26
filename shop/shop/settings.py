@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os 
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#xc5jg&4rs&wh=nhyl7ko485_v%+#f5b)p*v!#w#h-e4ddj0e9'
+# SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY='django-insecure-#xc5jg&4rs&wh=nhyl7ko485_v%+#f5b)p*v!#w#h-e4ddj0e9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -28,17 +29,27 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+REST_FRAMEWORK = {
+'DEFAULT_AUTHENTICATION_CLASSES': (
+    'rest_framework.authentication.TokenAuthentication',
+    'rest_framework.authentication.SessionAuthentication',
+)
+}
+
+DJOSER={"USER_ID_FIELD":"username"}
+
+
 # Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'shop_functionality',  
     'django.contrib.auth',
     'rest_framework',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'shop_functionality',  
 ]
 
 MIDDLEWARE = [
@@ -53,7 +64,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'shop.urls'
 
-LOGIN_REDIRECT = '/home'
+LOGIN_REDIRECT = ''
+LOGOUT_REDIRECT = ''
 
 TEMPLATES = [
     {

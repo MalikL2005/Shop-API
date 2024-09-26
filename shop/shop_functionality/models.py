@@ -8,6 +8,9 @@ class Shop_item(models.Model):
     description = models.TextField(max_length=1000)
     on_sale = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"{self.name} ({self.price}$), on sale: {self.on_sale}"
+
 class Cart(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     shop_items = models.ForeignKey(Shop_item, on_delete=models.CASCADE)

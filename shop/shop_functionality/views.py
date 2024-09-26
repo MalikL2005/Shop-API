@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from .forms import UserForm
-from .models import Shop_item
+from .models import Shop_item, Cart
 from .serializers import Shop_item_serializer
 
 def index(req):
@@ -22,6 +22,15 @@ class view_shop_items(ListView):
         serialized_context = Shop_item_serializer(context, many=True).data
         return {'list': serialized_context}
     
+class view_cart(ListView):
+    model = Shop_item
+    template_name = "cart.html"
+    paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = Shop_item.objects.all()
+        serialized_context = Shop_item_serializer(context, many=True).data
+        return {'list': serialized_context}
 
 def sign_up(req): return render(req, 'sign_up.html', {'form': UserForm})
 

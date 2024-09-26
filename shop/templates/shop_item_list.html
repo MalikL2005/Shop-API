@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            console.log("started script")
+            
+            function add_to_cart(id, user_is_authenticated){
+                console.log(id)
+                console.log(user_is_authenticated)
+
+            }
+        </script>
+    </head>
+<body>
 {% extends "base.html" %}
 {% block title %}
     <h1>Shop</h1>
@@ -6,7 +20,13 @@
     {% for item in list %}
         <div>
             {{item}}
-            <button id="add_to_cart">Add to cart</button>
+            {% if user.is_authenticated %}
+                <button id="add_to_cart" name={{item.id}} onclick="add_to_cart(this.name, true)">Add to cart</button>
+            {% else %}
+                <button id="add_to_cart" name={{item.id}} onclick="add_to_cart(this.name, false)">Add to cart</button>
+            {% endif %}
         </div>
     {% endfor %}
 {% endblock%}
+</body>
+</html>

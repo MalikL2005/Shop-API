@@ -7,8 +7,12 @@
         <nav>
             <ul>
                 <li><a href="/home">Home</a></li>
-                <li><a href="/login">Login</a></li>
-                <li><a href="/sign-up">Sign up</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="/logout">Logout</a></li>
+                {% else %}
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/sign-up">Sign up</a></li>
+                {% endif %}
                 <li><a href="/shop">Shop</a></li>
                 <li><a href="/cart">Cart</a></li>
             </ul>
