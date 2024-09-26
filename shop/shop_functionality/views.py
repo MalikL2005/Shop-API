@@ -51,3 +51,7 @@ def validate_sign_up(req):
             print('New User created')
             return redirect('/login')
         else: return HttpResponse("Could not create user")
+
+def add_item_to_cart(req, pk):
+    print(pk)
+    return HttpResponse({"item_id": pk})

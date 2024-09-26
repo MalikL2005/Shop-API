@@ -7,7 +7,21 @@
             function add_to_cart(id, user_is_authenticated){
                 console.log(id)
                 console.log(user_is_authenticated)
-
+                if(user_is_authenticated == true){
+                    console.log("Hi")
+                    const button = document.getElementsByName(id);
+                    for (item of button){
+                        console.log(item.getAttribute("data-user"))
+                        // add item to user 
+                        // Add CSRF_Token 
+                        fetch("http://localhost:8000/cart/add_item/"+id, {method: 'POST', 
+                        body: JSON.stringify({user: item.getAttribute("data-user")}), 
+                        headers: {"Content-Type": "application/json; charset=UTF-8"}
+                    }).then((res) => res.json()).then((json)=> console.log(json))
+                    }
+                    console.log(user)
+                }
+                
             }
         </script>
     </head>
@@ -21,7 +35,7 @@
         <div>
             {{item}}
             {% if user.is_authenticated %}
-                <button id="add_to_cart" name={{item.id}} onclick="add_to_cart(this.name, true)">Add to cart</button>
+                <button id="add_to_cart" name={{item.id}} data-user={{user}} onclick="add_to_cart(this.name, true)">Add to cart</button>
             {% else %}
                 <button id="add_to_cart" name={{item.id}} onclick="add_to_cart(this.name, false)">Add to cart</button>
             {% endif %}
